@@ -1,0 +1,7 @@
+1. https://reflectoring.io/spring-boot-web-controller-test/: I consulted this website to learn how to use MVC to test Web Controllers, referred to use the methods like mockMvc.perform, .contentType, andExpect I used in RouteControllerUnitTests.java
+
+2.https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-framework/server.html: I also referred to examples in this website to learn MockMvc basics. I used the methods I learned to write tests in RouteControllerUnitTests.java
+
+3. https://stackoverflow.com/questions/12038238/unable-to-locate-source-xref-to-link-to: I used solution in this answer to solve a warning [WARNING] Unable to locate Source XRef to link to - DISABLED when using pmd.
+
+4. https://www.geeksforgeeks.org/overriding-equals-method-in-java/： I also confirmed a formal way of writing override equals() through this website. I used its code logic and skeleton to write my own version of equals() in both Course and Department classes.

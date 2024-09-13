@@ -2,7 +2,7 @@ package dev.coms4156.project.individualproject;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.lang.Override;
+import java.util.Objects;
 
 /**
  * Represents a course within an educational institution.
@@ -77,6 +77,7 @@ public class Course implements Serializable {
     return this.enrollmentCapacity;
   }
 
+  @Override
   public String toString() {
     return "\nInstructor: " + instructorName + "; Location: "
         + courseLocation + "; Time: " + courseTimeSlot;
@@ -108,24 +109,23 @@ public class Course implements Serializable {
     if (obj == this) {
       return true;
     }
-    
-    if (obj == null || !(obj instanceof Course)) {
+
+    if (!(obj instanceof Course)) {
       return false;
     }
 
     Course course = (Course) obj;
 
-    if (this.enrollmentCapacity == course.getEnrollmentCapacity()
+    return this.enrollmentCapacity == course.getEnrollmentCapacity()
         && this.enrolledStudentCount == course.getEnrolledStudentCount()
         && this.courseLocation.equals(course.getCourseLocation())
         && this.instructorName.equals(course.getInstructorName())
-        && this.courseTimeSlot.equals(course.getCourseTimeSlot())
-        ) {
-      return true;
-    } else {
-      return false;
-    }
-
+        && this.courseTimeSlot.equals(course.getCourseTimeSlot());
+  }
+  
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(this.toString());
   }
 
   @Serial

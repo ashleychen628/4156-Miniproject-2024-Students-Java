@@ -1,0 +1,70 @@
+Fixing bugs using my test suites
+1. Course.java
+	⁃	enrollStudent(): Fixed not checking if course is full. Added if-else depending on isCourseFull()
+	⁃	isCourseFull(): FIxed wrong logic to indicate the course is full when enrollmentCapacity < enrolledStudentCount: return true. otherwise, the course is not full when enrollmentCapacity >= enrolledStudentCount
+	⁃	dropStudent(): Fixed return true if the student is successfully dropped. Added a logic that when no students enrolled, return false because this means the student is not enrolled. Can’t do further change due to lack of infomation.
+	⁃	getCourseLocation(): Fixed false return of InstructorName to CourseLocation
+	⁃	getInstructorName(): Fixed false return of CourseLocation to InstructorName
+	⁃	equals(Objct obj): Added an override function equals to compare department hashmap
+2. Department.java
+	⁃	getNumberOfMajors(): Deleted hyphen ‘-’ to correctly return numberOfMajors.
+	⁃	getDepartmentChair(): Changed returning a string to return the string variable of name of department chair.
+	⁃	addCourse(…): Fixed confusion by adding “this.” infront of courses.put
+	⁃	toString(): Deleted “” so that it returns a string representing the depart, not “result.toString()”
+	⁃	equals(Objct obj): Added an override function equals to compare department hashmap
+3. RouteController.java
+	⁃	retrieveDepartment(): Fixed return HttpStatus.NOT_FOUND when departmentMapping does not contain depfCode key, return HttpStatus.OK otherwise.
+	⁃	handelException(): Fixed the HttpStatus should be INTERNAL_SERVER_ERROR
+	⁃	retrieveCourse(): Fixed return HttpStatus.OK when courseCode is found
+	⁃	getMajorCtFromDept(): 
+		Fixed falsely returning negative number of majors, deleted minus sign.
+		Fixed falsely returning HttpStatus.FORBIDDEN, to HttpStatus.NOT_FOUND when the department code is not found.
+	⁃	findCourseTime(): Fixed return message from "some time " to real time slot by accessing requested Courses.
+
+Fixing bugs using PMD
+1. Course.java:
+	⁃	UnnecessaryImport: Unnecessary import from the java.lang package 'java.lang.Override'
+		⁃	Fixed: deleted this import
+	⁃	MissingOverride: The method 'toString()' is missing an @Override annotation.
+		⁃	Fixed: Added the Override annotation
+	⁃	OverrideBothEqualsAndHashcode: Ensure you override both equals() and hashCode()
+		⁃	Fixed: Added a method to override hashCode()
+	⁃	SimplifyConditional: No need to check for null before an instanceof
+		⁃	Fixed: Deleted check for null
+	⁃	SimplifyBooleanReturns: This if statement can be replaced by `return {condition};`
+		⁃	Fixed: Changed to return {condition}
+2. Department.java
+	⁃	UnnecessaryImport: Unnecessary import from the java.lang package 'java.lang.Override'
+		⁃	Fixed: Deleted this import
+	⁃	Department(): LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
+	⁃	getCourseSelection: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
+	⁃	PublicDeclaration of courses: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
+	⁃	MissingOverride: The method 'toString()' is missing an @Override annotation.
+		⁃	Fixed: Added @Override
+	⁃	 OverrideBothEqualsAndHashcode: Ensure you override both equals() and hashCode()
+		⁃	Fixed: Added a method to override hashCode()
+	⁃	SimplifyConditional: No need to check for null before an instanceof
+		⁃	Fixed: Deleted check for null
+	⁃	SimplifyBooleanReturns: This if statement can be replaced by `return {condition};`
+		⁃	Fixed: Changed to return {condition}
+3. IndividualProjectApplication.java: 
+	⁃	LiteralsFirstInComparisons: Position literals first in String comparisons
+		⁃	FIxed: exchanged arg and “setup”
+	⁃	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
+4. MyFileDatabase.java: 
+	⁃	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
+	⁃	 ReturnEmptyCollectionRatherThanNull: Return an empty collection rather than null.
+		⁃	Fixed: Changed return null to return Collections.emptyMap();
+5. RouteController.java:
+	⁃	UseLocaleWithCaseConversions: When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+		⁃	Fixed: added Local: .toUpperCase(Locale.ENGLISH)
+	⁃	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+		⁃	Fixed: change declaration of HashMap<…> departmentMapping; to Map<…> = new HashMap<>();
+	⁃	UnnecessaryAnnotationValueElement: Avoid the use of value in annotations when its the only element
+		⁃	Fixed: Deleted the annotation value =
+
