@@ -210,7 +210,7 @@ public class RouteControllerUnitTests {
     Course elen4510 = new Course("Mohamed Kamaludeen", "903 SSW", "7:00-9:30", 30);
     elen4510.setEnrolledStudentCount(22);
     Course elen4702 = new Course("Alexei Ashikhmin", "332 URIS", "7:00-9:30", 50);
-    elen4702.setEnrolledStudentCount(5);
+    elen4702.setEnrolledStudentCount(0);
     Course elen4830 = new Course("Christine P Hendon", "633 MUDD", "10:10-12:40", 60);
     elen4830.setEnrolledStudentCount(22);
 
@@ -311,13 +311,14 @@ public class RouteControllerUnitTests {
 
   // @Test
   // public void retrieveDepartmentExceptionTest() throws Exception {
-  //   // when(myFileDatabase.getDepartmentMapping()).thenThrow(new RuntimeException());
-  //   when(myFileDatabase.getDepartmentMapping()).thenReturn(null);
+  //   Exception e = new RuntimeException("An Error had occurred");
+  //   when(myFileDatabase.getDepartmentMapping()).thenThrow(e);
+  //   // when(myFileDatabase.getDepartmentMapping()).thenReturn(null);
   //   mockMvc.perform(get("/retrieveDept")
-  //       .param("deptCode", "ELEN")
+  //       .param("deptCode", "")
   //       .accept(MediaType.APPLICATION_JSON_VALUE))
-  //       .andExpect(status().isBadRequest())
-  //       .andExpect(content().string("An Error has occurred"));
+  //       .andExpect(status().isInternalServerError())
+  //      .andExpect(content().string("An Error has occurred"));
   // }
 
   @Test
@@ -463,7 +464,6 @@ public class RouteControllerUnitTests {
         .andExpect(content().string("Course Not Found"));
   }
 
-
   @Test
   public void findCourseTimeTest_FoundCourse() throws Exception {
     when(myFileDatabase.getDepartmentMapping()).thenReturn(mapping);
@@ -473,7 +473,7 @@ public class RouteControllerUnitTests {
         .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(content().string("The course meets at: "
-        + elenCourses.get("1201").getCourseTimeSlot()));
+            + elenCourses.get("1201").getCourseTimeSlot()));
   }
 
   @Test
@@ -506,6 +506,65 @@ public class RouteControllerUnitTests {
         .andExpect(status().isNotFound())
         .andExpect(content().string("Department Not Found"));
   }
+
+  @Test
+  public void removeMajorFromDeptTest_FoundDept() throws Exception {
+    when(myFileDatabase.getDepartmentMapping()).thenReturn(mapping);
+    mockMvc.perform(patch("/removeMajorFromDept")
+        .param("deptCode", "ELEN")
+        .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(content().string("Attribute was updated or is at minimum"));
+  }
+
+  @Test
+  public void removeMajorFromDeptTest_NotFoundDept() throws Exception {
+    when(myFileDatabase.getDepartmentMapping()).thenReturn(mapping);
+    mockMvc.perform(patch("/removeMajorFromDept")
+        .param("deptCode", "COMMUNICATION")
+        .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isNotFound())
+        .andExpect(content().string("Department Not Found"));
+  }
+
+  @Test
+  public void dropStudentTest_FoundCourseDropped() throws Exception {
+    when(myFileDatabase.getDepartmentMapping()).thenReturn(mapping);
+    mockMvc.perform(patch("/dropStudentFromCourse")
+        .param("deptCode", "ELEN")
+        .param("courseCode", "1201")
+        .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(content().string("Student has been dropped."));
+  }
+
+  // @Test
+  // public void dropStudentTest_FoundCourseNotDropped() throws Exception {
+  //   when(myFileDatabase.getDepartmentMapping()).thenReturn(mapping);
+  //   mockMvc.perform(patch("/dropStudentFromCourse")
+  //       .param("deptCode", "ELEN")
+  //       .param("courseCode", "4702")
+  //       .accept(MediaType.APPLICATION_JSON_VALUE))
+  //       // .andExpect(status().isBadRequest())
+  //       // .andExpect(content().string("Student has not been dropped."));
+  // }
+
+  @Test
+  public void dropStudentTest_NotFoundCourse() throws Exception {
+    when(myFileDatabase.getDepartmentMapping()).thenReturn(mapping);
+    mockMvc.perform(patch("/dropStudentFromCourse")
+        .param("deptCode", "ELEN")
+        .param("courseCode", "2024")
+        .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isNotFound())
+        .andExpect(content().string("Course Not Found"));
+  }
+  
+  // @Test
+  // public void handleExceptionTest(
+
+   
+  // }
 
   public static HashMap<String, Course> elenCourses;
   public static HashMap<String, Department> mapping;
