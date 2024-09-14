@@ -29,16 +29,16 @@ Fixing bugs using PMD
 		⁃	Fixed: Added the Override annotation
 	⁃	OverrideBothEqualsAndHashcode: Ensure you override both equals() and hashCode()
 		⁃	Fixed: Added a method to override hashCode()
-	⁃	SimplifyConditional: No need to check for null before an instanceof
+	⁃	equals(): SimplifyConditional: No need to check for null before an instanceof
 		⁃	Fixed: Deleted check for null
-	⁃	SimplifyBooleanReturns: This if statement can be replaced by `return {condition};`
+	⁃	equals(): SimplifyBooleanReturns: This if statement can be replaced by `return {condition};`
 		⁃	Fixed: Changed to return {condition}
 2. Department.java
 	⁃	UnnecessaryImport: Unnecessary import from the java.lang package 'java.lang.Override'
 		⁃	Fixed: Deleted this import
 	⁃	Department(): LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
 		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
-	⁃	getCourseSelection: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+	⁃	getCourseSelection(): LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
 		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
 	⁃	PublicDeclaration of courses: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
 		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
@@ -46,25 +46,25 @@ Fixing bugs using PMD
 		⁃	Fixed: Added @Override
 	⁃	 OverrideBothEqualsAndHashcode: Ensure you override both equals() and hashCode()
 		⁃	Fixed: Added a method to override hashCode()
-	⁃	SimplifyConditional: No need to check for null before an instanceof
+	⁃	equals(): SimplifyConditional: No need to check for null before an instanceof
 		⁃	Fixed: Deleted check for null
-	⁃	SimplifyBooleanReturns: This if statement can be replaced by `return {condition};`
+	⁃	equals(): SimplifyBooleanReturns: This if statement can be replaced by `return {condition};`
 		⁃	Fixed: Changed to return {condition}
 3. IndividualProjectApplication.java: 
-	⁃	LiteralsFirstInComparisons: Position literals first in String comparisons
+	⁃	run(): LiteralsFirstInComparisons: Position literals first in String comparisons
 		⁃	FIxed: exchanged arg and “setup”
-	⁃	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+	⁃	all methods using HashMap<>: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
 		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
 4. MyFileDatabase.java: 
-	⁃	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+	⁃	all methods using HashMap<>: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
 		⁃	Fixed: change declaration of HashMap<…>; to Map<…>;
-	⁃	 ReturnEmptyCollectionRatherThanNull: Return an empty collection rather than null.
+	⁃	deSerializeObjectFromFile(): ReturnEmptyCollectionRatherThanNull: Return an empty collection rather than null.
 		⁃	Fixed: Changed return null to return Collections.emptyMap();
 5. RouteController.java:
-	⁃	UseLocaleWithCaseConversions: When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+	⁃	retrieveDepartment(): UseLocaleWithCaseConversions: When doing a String.toLowerCase()/toUpperCase() call, use a Locale
 		⁃	Fixed: added Local: .toUpperCase(Locale.ENGLISH)
-	⁃	LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+	⁃	all methods using HashMap<>: LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
 		⁃	Fixed: change declaration of HashMap<…> departmentMapping; to Map<…> = new HashMap<>();
-	⁃	UnnecessaryAnnotationValueElement: Avoid the use of value in annotations when its the only element
+	⁃	all methods using value=: UnnecessaryAnnotationValueElement: Avoid the use of value in annotations when its the only element
 		⁃	Fixed: Deleted the annotation value =
 
